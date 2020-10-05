@@ -138,7 +138,12 @@ void DescriptorProcessor::process() {
         double distanceRatio = sumDistance / good_matches.size();
         //third metric
         auto time = std::chrono::duration_cast<std::chrono::microseconds>(end - begin);
-        Metrics data({filename, pointsRatio, distanceRatio, time.count()});
+
+        //size
+        int width = mSceneImgs[i].second.cols;
+        int height = mSceneImgs[i].second.rows;
+
+        Metrics data({filename, pointsRatio, distanceRatio, time.count(), width, height});
         mMetrics.push_back(data);
     }
 }
@@ -152,12 +157,7 @@ void DescriptorProcessor::detectAndCompute(cv::Mat image, std::vector<cv::KeyPoi
 
 std::vector<std::string> const DescriptorProcessor::findSceneImages(const std::string &path) {
     std::vector<std::string> res;
-    int i = 0;
     for (const auto &entry : std::filesystem::directory_iterator(path)) {
-        i += 1;
-        if (i % 3 != 0) {
-            continue;
-        }
         std::string filename = entry.path().filename().string();
         if (filename.find("scene") != std::string::npos) {
             res.push_back(filename);
@@ -180,6 +180,8 @@ void DescriptorProcessor::setHaussian(int haussian) {
 
 void DescriptorProcessor::saveMetricsToFile(std::string &filename) {
     CSVWriter writer(filename);
+    std::vector<std::string> headers = {"Filename", "Average matched points", "Average distance", "Average process time", "Size"};
+    writer.addDataInRow(headers.begin(), headers.end());
     for(auto & m: mMetrics){
         std::vector<std::string> dataToAdd = m.toVector();
         writer.addDataInRow(dataToAdd.begin(), dataToAdd.end());
@@ -192,5 +194,6 @@ std::vector<std::string> DescriptorProcessor::Metrics::toVector() const {
     res.push_back(std::to_string(pointsInsideAvg));
     res.push_back(std::to_string(distanceAvg));
     res.push_back(std::to_string(duration));
+    res.push_back(std::to_string(width) + "x" + std::to_string(height));
     return res;
 }

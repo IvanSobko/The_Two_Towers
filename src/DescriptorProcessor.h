@@ -45,6 +45,8 @@ private:
         double pointsInsideAvg;
         double distanceAvg;
         int64_t duration;
+        int width;
+        int height;
 
         std::vector<std::string> toVector() const;
     };
