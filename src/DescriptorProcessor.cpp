@@ -180,7 +180,7 @@ void DescriptorProcessor::setHaussian(int haussian) {
 
 void DescriptorProcessor::saveMetricsToFile(std::string &filename) {
     CSVWriter writer(filename);
-    std::vector<std::string> headers = {"Filename", "Average matched points", "Average distance", "Average process time", "Size"};
+    std::vector<std::string> headers = {"Filename", "Average matched points", "Average distance", "Average process time (μs)", "Size"};
     writer.addDataInRow(headers.begin(), headers.end());
     for(auto & m: mMetrics){
         std::vector<std::string> dataToAdd = m.toVector();
