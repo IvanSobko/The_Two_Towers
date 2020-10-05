@@ -20,7 +20,7 @@ message(STATUS "    include path: ${OpenCV_INCLUDE_DIRS}")
 include_directories(${OpenCV_INCLUDE_DIRS})
 
 
-add_executable(${PROJECT_NAME} src/main.cpp)
+add_executable(${PROJECT_NAME} src/main.cpp src/DescriptorProcessor.cpp src/DescriptorProcessor.h)
 
 target_link_libraries(${PROJECT_NAME} ${OpenCV_LIBS})
 
