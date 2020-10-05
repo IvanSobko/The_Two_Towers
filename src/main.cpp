@@ -23,7 +23,7 @@ int main() {
     processor.process();
 //    processor.displayMatches();
 
-    std::string metricsFilename = "results_final.csv";
+    std::string metricsFilename = "../results_final.csv";
     processor.saveMetricsToFile(metricsFilename);
     return 0;
 }
