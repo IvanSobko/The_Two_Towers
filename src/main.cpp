@@ -1,24 +1,11 @@
 #include <iostream>
-#include <vector>
 #include <map>
 #include <filesystem>
-#include <chrono>
-#include <math.h>
 
-#include "opencv2/core/core.hpp"
 #include "opencv2/xfeatures2d/nonfree.hpp"
-#include "opencv2/highgui/highgui.hpp"
 #include "opencv2/calib3d.hpp"
 #include "opencv2/highgui.hpp"
 #include "opencv2/imgproc.hpp"
-#include "opencv2/features2d.hpp"
-#include "opencv2/xfeatures2d.hpp"
-
-//      відносна кількість правильно суміщених ознак
-//      похибка локалізації (відстань між реальним розміщенням предмета в кадрі та розпізнаним)
-//      відносний час обробки фото в залежності від розміру зображення
-
-
 
 std::vector<std::string> const findSceneImages(const std::string &path) {
     std::vector<std::string> res;
