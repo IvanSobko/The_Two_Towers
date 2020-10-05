@@ -21,9 +21,9 @@ int main() {
     }
     processor.setHaussian(400);
     processor.process();
-    processor.displayMatches();
+//    processor.displayMatches();
 
-    std::string metricsFilename = "results.csv";
+    std::string metricsFilename = "results_final.csv";
     processor.saveMetricsToFile(metricsFilename);
     return 0;
 }
