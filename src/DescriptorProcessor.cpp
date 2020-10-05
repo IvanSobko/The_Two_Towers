@@ -3,7 +3,7 @@
 #include <filesystem>
 #include <vector>
 
-
+#include "CsvWriter.h"
 #include "opencv2/xfeatures2d/nonfree.hpp"
 #include "opencv2/calib3d.hpp"
 #include "opencv2/highgui.hpp"
@@ -178,6 +178,19 @@ void DescriptorProcessor::setHaussian(int haussian) {
     mMinHaussian = haussian;
 }
 
-void DescriptorProcessor::getMetrics() {
+void DescriptorProcessor::saveMetricsToFile(std::string &filename) {
+    CSVWriter writer(filename);
+    for(auto & m: mMetrics){
+        std::vector<std::string> dataToAdd = m.toVector();
+        writer.addDataInRow(dataToAdd.begin(), dataToAdd.end());
+    }
+}
 
+std::vector<std::string> DescriptorProcessor::Metrics::toVector() const {
+    std::vector<std::string> res;
+    res.push_back(filename);
+    res.push_back(std::to_string(pointsInsideAvg));
+    res.push_back(std::to_string(distanceAvg));
+    res.push_back(std::to_string(duration));
+    return res;
 }

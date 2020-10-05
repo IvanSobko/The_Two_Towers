@@ -17,7 +17,7 @@ public:
 
     void process();
 
-    void getMetrics();
+    void saveMetricsToFile(std::string &filename);
 
     size_t getSize();
 
@@ -45,6 +45,8 @@ private:
         double pointsInsideAvg;
         double distanceAvg;
         int64_t duration;
+
+        std::vector<std::string> toVector() const;
     };
     std::vector<Metrics> mMetrics;
 };
